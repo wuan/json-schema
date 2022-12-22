@@ -1,8 +1,13 @@
 name: Basic CI
+
 on:
   push:
-    - master
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
+
 jobs:
   gradle:
     strategy:
