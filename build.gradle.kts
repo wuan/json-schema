@@ -3,6 +3,7 @@ plugins {
     id("com.github.kt3k.coveralls") version "2.12.0"
     `java-library`
     `maven-publish`
+    id("org.sonarqube") version "3.5.0.2730"
     idea
     jacoco
 }
@@ -36,6 +37,12 @@ tasks.jacocoTestReport {
         xml.required.set(true)
         csv.required.set(false)
         html.required.set(false)
+    }
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "wuan_json-schema_AYVNclMSU_dM7amWRil-"
     }
 }
 
