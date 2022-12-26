@@ -42,7 +42,7 @@ tasks.jacocoTestReport {
 
 sonar {
     properties {
-        property "sonar.projectKey", "wuan_json-schema_AYVNclMSU_dM7amWRil-"
+        property("sonar.projectKey", "wuan_json-schema_AYVNclMSU_dM7amWRil-")
     }
 }
 
