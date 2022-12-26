@@ -5,7 +5,7 @@ plugins {
     `maven-publish`
     id("org.sonarqube") version "3.5.0.2730"
     idea
-    jacoco
+    id("jacoco")
 }
 
 group = "com.mercateo"
@@ -32,12 +32,17 @@ jacoco {
     toolVersion = "0.8.8"
 }
 
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+
 tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
         csv.required.set(false)
         html.required.set(false)
     }
+    dependsOn(tasks.test)
 }
 
 sonar {
