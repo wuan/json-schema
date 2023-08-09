@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.9.0"
     id("com.github.kt3k.coveralls") version "2.12.0"
     `java-library`
     `maven-publish`
@@ -29,7 +29,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 }
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.10"
 }
 
 tasks.test {
