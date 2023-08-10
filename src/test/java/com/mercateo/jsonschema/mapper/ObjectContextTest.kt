@@ -11,12 +11,13 @@ import org.junit.Before
 import org.junit.Test
 
 data class PropertyA(
-        var count: Int? = null,
-        var inner: PropertyB? = null)
+    var count: Int? = null,
+    var inner: PropertyB? = null
+)
 
 
 data class PropertyB(
-        var value: String? = null
+    var value: String? = null
 )
 
 class ObjectContextTest {
@@ -36,7 +37,13 @@ class ObjectContextTest {
         every { propertyDescriptorB.children } returns emptyList()
         every { propertyDescriptorB.genericType } returns GenericType.of(PropertyB::class.java)
         every { propertyDescriptorB.propertyType } returns PropertyType.OBJECT
-        inner = Property("inner", propertyDescriptorB, { x: PropertyA -> x.inner }, emptyMap(), Property.Context.Unconnected)
+        inner = Property(
+            "inner",
+            propertyDescriptorB,
+            { x: PropertyA -> x.inner },
+            emptyMap(),
+            Property.Context.Unconnected
+        )
     }
 
     @Test
@@ -54,8 +61,10 @@ class ObjectContextTest {
     fun shouldCreateInnerWithoutDefaultValue() {
         val propertyAContext = ObjectContext(outer)
 
-        val propertyBContext = propertyAContext.createInner(inner,
-                PropertyA::inner)
+        val propertyBContext = propertyAContext.createInner(
+            inner,
+            PropertyA::inner
+        )
 
         assertThat(propertyBContext.defaultValue).isNull()
     }
@@ -66,7 +75,8 @@ class ObjectContextTest {
 
         val propertyAContext = ObjectContext(outer, defaultValue = defaultValue)
 
-        val propertyBContext = propertyAContext.createInner(inner
+        val propertyBContext = propertyAContext.createInner(
+            inner
         ) { propA -> propA.inner }
 
         assertThat(propertyBContext.defaultValue).isNull()
@@ -79,11 +89,14 @@ class ObjectContextTest {
 
         val propertyAContext = ObjectContext(outer, allowedValues = setOf(propertyA1, propertyA2))
 
-        val propertyBContext = propertyAContext.createInner(inner
+        val propertyBContext = propertyAContext.createInner(
+            inner
         ) { propA -> propA.inner }
 
-        assertThat(propertyBContext.allowedValues).containsExactlyInAnyOrder(propertyA1.inner,
-                propertyA2.inner)
+        assertThat(propertyBContext.allowedValues).containsExactlyInAnyOrder(
+            propertyA1.inner,
+            propertyA2.inner
+        )
     }
 
     private fun createProperty(value: String, count: Int): PropertyA {

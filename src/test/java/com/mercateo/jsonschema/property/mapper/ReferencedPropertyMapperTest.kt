@@ -17,8 +17,8 @@ class ReferencedPropertyMapperTest {
     @Before
     fun setUp() {
         propertyBuilder = PropertyBuilderWrapper(
-                BasicPropertyBuilder(rawPropertyCollectors = listOf(FieldCollector())),
-                ReferencedPropertyMapper()
+            BasicPropertyBuilder(rawPropertyCollectors = listOf(FieldCollector())),
+            ReferencedPropertyMapper()
         )
     }
 

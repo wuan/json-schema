@@ -25,8 +25,10 @@ class FieldCollectorTest {
     fun mapAllDeclaredFields() {
         val properties = fieldCollector.forType(PropertyHolder::class.java).toList()
 
-        assertThat(properties).extracting("name").containsExactlyInAnyOrder("hidden",
-                "visible")
+        assertThat(properties).extracting("name").containsExactlyInAnyOrder(
+            "hidden",
+            "visible"
+        )
     }
 
     @Test
@@ -42,8 +44,9 @@ class FieldCollectorTest {
     @Throws(Exception::class)
     fun mapAllDaeclaredFields() {
         @Suppress("UNCHECKED_CAST")
-        val hidden: RawProperty<PropertyHolder, String> = fieldCollector.forType(PropertyHolder::class.java).filter { p -> p.name == "hidden" }.first()
-                as RawProperty<PropertyHolder, String>
+        val hidden: RawProperty<PropertyHolder, String> =
+            fieldCollector.forType(PropertyHolder::class.java).filter { p -> p.name == "hidden" }.first()
+                    as RawProperty<PropertyHolder, String>
 
         val propertyHolder = PropertyHolder()
         hidden.valueAccessor(propertyHolder)

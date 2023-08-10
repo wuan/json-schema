@@ -47,7 +47,9 @@ internal class StringJsonPropertyMapper(nodeFactory: JsonNodeFactory) : JsonProp
             .takeIf { it > 0 }
             ?.let { propertyNode.put("minLength", it) }
 
-        if (sizeAnnotations.isEmpty() && !(property.property.annotations[NotEmpty::class.java] ?: emptySet()).isEmpty()) {
+        if (sizeAnnotations.isEmpty() && !(property.property.annotations[NotEmpty::class.java]
+                ?: emptySet()).isEmpty()
+        ) {
             propertyNode.put("minLength", 1)
         }
 

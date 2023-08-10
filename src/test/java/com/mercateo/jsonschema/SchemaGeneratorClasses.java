@@ -128,7 +128,8 @@ public class SchemaGeneratorClasses {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface Inactive {}
+    public @interface Inactive {
+    }
 
     public static class Checked {
         @Inactive

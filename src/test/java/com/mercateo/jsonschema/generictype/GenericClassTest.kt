@@ -46,8 +46,8 @@ class GenericClassTest {
         val genericType = GenericType.of(String::class.java)
 
         assertThatThrownBy { genericType.containedType }
-                .isInstanceOf(IllegalAccessError::class.java)
-                .hasMessage("GenericClass String has no contained type")
+            .isInstanceOf(IllegalAccessError::class.java)
+            .hasMessage("GenericClass String has no contained type")
     }
 
     @Test

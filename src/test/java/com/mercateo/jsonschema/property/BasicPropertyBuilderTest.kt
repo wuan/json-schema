@@ -44,13 +44,14 @@ class BasicPropertyBuilderTest {
     @Test
     fun unwrapsCustomTypes() {
         propertyBuilder = BasicPropertyBuilder(
-                customUnwrappers = mapOf(Pair(GenericPropertyHolder::class.java) { wrapper ->
-                    if (wrapper is GenericPropertyHolder<*>) {
-                        wrapper.property
-                    } else {
-                        null
-                    }
-                }), rawPropertyCollectors = listOf(FieldCollector()))
+            customUnwrappers = mapOf(Pair(GenericPropertyHolder::class.java) { wrapper ->
+                if (wrapper is GenericPropertyHolder<*>) {
+                    wrapper.property
+                } else {
+                    null
+                }
+            }), rawPropertyCollectors = listOf(FieldCollector())
+        )
         val property = propertyBuilder.from(TwoLevelPropertyHolder::class.java)
 
         assertThat(property.children).extracting("name").containsExactly("holder")
@@ -62,7 +63,8 @@ class BasicPropertyBuilderTest {
         val value = OptionalPropertyHolder().also { it.property = Optional.of("foo") }
 
         val rootProperty = propertyBuilder.from(OptionalPropertyHolder::class.java)
-        val optionalProperty: Property<OptionalPropertyHolder, Any>? = rootProperty.children.find { it.name == "property" }
+        val optionalProperty: Property<OptionalPropertyHolder, Any>? =
+            rootProperty.children.find { it.name == "property" }
         val propertyValue = optionalProperty?.getValue(value)
 
         assertThat(propertyValue).isEqualTo("foo")
@@ -73,7 +75,8 @@ class BasicPropertyBuilderTest {
         val value = OptionalPropertyHolder().also { it.property = Optional.empty() }
 
         val rootProperty = propertyBuilder.from(OptionalPropertyHolder::class.java)
-        val optionalProperty: Property<OptionalPropertyHolder, Any>? = rootProperty.children.find { it.name == "property" }
+        val optionalProperty: Property<OptionalPropertyHolder, Any>? =
+            rootProperty.children.find { it.name == "property" }
         val propertyValue = optionalProperty?.getValue(value)
 
         assertThat(propertyValue).isNull()
@@ -134,7 +137,10 @@ class BasicPropertyBuilderTest {
         val property = propertyBuilder.from(TwoLevelPropertyHolder::class.java)
 
         val firstElement1 = property.children.first()
-        assertThat(getAnnotations(firstElement1)).containsExactlyInAnyOrder(Annotation1::class.java, Annotation2::class.java)
+        assertThat(getAnnotations(firstElement1)).containsExactlyInAnyOrder(
+            Annotation1::class.java,
+            Annotation2::class.java
+        )
     }
 
     private fun getAnnotations(firstElement1: Property<*, *>): Set<Class<out Annotation>> {
@@ -201,13 +207,17 @@ class BasicPropertyBuilderTest {
         val property = propertyBuilder.from(TwoLevelMethodPropertyHolder::class.java)
         val firstElement = property.children.first()
 
-        assertThat(getAnnotations(firstElement)).containsExactlyInAnyOrder(Annotation1::class.java, Annotation3::class.java)
+        assertThat(getAnnotations(firstElement)).containsExactlyInAnyOrder(
+            Annotation1::class.java,
+            Annotation3::class.java
+        )
     }
 
     @Test
     @Throws(Exception::class)
     fun followCollectionProperties() {
-        val property: Property<Void, CollectionPropertyHolder> = propertyBuilder.from(CollectionPropertyHolder::class.java)
+        val property: Property<Void, CollectionPropertyHolder> =
+            propertyBuilder.from(CollectionPropertyHolder::class.java)
         val collectionElement: Property<CollectionPropertyHolder, Any> = property.children.first()
         val collectionTypeElement: Property<Any, out Any?> = collectionElement.children.first()
 
@@ -266,77 +276,88 @@ class BasicPropertyBuilderTest {
     fun shouldMapStringType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "string" }).extracting {it?.propertyType}.isEqualTo(PropertyType.STRING)
+        assertThat(property.children.find { it.name == "string" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.STRING)
     }
 
     @Test
     fun shouldMapPrimitiveBooleanType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "booleanPrimitive" }).extracting {it?.propertyType}.isEqualTo(PropertyType.BOOLEAN)
+        assertThat(property.children.find { it.name == "booleanPrimitive" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.BOOLEAN)
     }
 
     @Test
     fun shouldMapBooleanType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "booleanValue" }).extracting {it?.propertyType}.isEqualTo(PropertyType.BOOLEAN)
+        assertThat(property.children.find { it.name == "booleanValue" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.BOOLEAN)
     }
 
     @Test
     fun shouldMapPrimitiveIntegerType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "integerPrimitive" }).extracting {it?.propertyType}.isEqualTo(PropertyType.INTEGER)
+        assertThat(property.children.find { it.name == "integerPrimitive" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.INTEGER)
     }
 
     @Test
     fun shouldMapIntegerType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "integerValue" }).extracting {it?.propertyType}.isEqualTo(PropertyType.INTEGER)
+        assertThat(property.children.find { it.name == "integerValue" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.INTEGER)
     }
 
     @Test
     fun shouldMapPrimitiveLongType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "longPrimitive" }).extracting {it?.propertyType}.isEqualTo(PropertyType.INTEGER)
+        assertThat(property.children.find { it.name == "longPrimitive" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.INTEGER)
     }
 
     @Test
     fun shouldMapLongType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "longValue" }).extracting {it?.propertyType}.isEqualTo(PropertyType.INTEGER)
+        assertThat(property.children.find { it.name == "longValue" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.INTEGER)
     }
 
     @Test
     fun shouldMapPrimitiveFloatType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "floatPrimitive" }).extracting {it?.propertyType}.isEqualTo(PropertyType.NUMBER)
+        assertThat(property.children.find { it.name == "floatPrimitive" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.NUMBER)
     }
 
     @Test
     fun shouldMapFloatType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "floatValue" }).extracting {it?.propertyType}.isEqualTo(PropertyType.NUMBER)
+        assertThat(property.children.find { it.name == "floatValue" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.NUMBER)
     }
 
     @Test
     fun shouldMapPrimitiveDoubleType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "doublePrimitive" }).extracting {it?.propertyType}.isEqualTo(PropertyType.NUMBER)
+        assertThat(property.children.find { it.name == "doublePrimitive" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.NUMBER)
     }
 
     @Test
     fun shouldMapDoubleType() {
         val property = propertyBuilder.from(TypesPropertyHolder::class.java)
 
-        assertThat(property.children.find { it.name == "doubleValue" }).extracting {it?.propertyType}.isEqualTo(PropertyType.NUMBER)
+        assertThat(property.children.find { it.name == "doubleValue" }).extracting { it?.propertyType }
+            .isEqualTo(PropertyType.NUMBER)
     }
 
     @Test

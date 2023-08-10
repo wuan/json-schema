@@ -15,12 +15,14 @@ public class Polymorphism {
         @JsonSubTypes.Type(name = "email", value = EmailContact.class),
         @JsonSubTypes.Type(name = "fax", value = FaxContact.class)
 })
-interface Contact {}
+interface Contact {
+}
 
 class EmailContact implements Contact {
     @NotNull
     public String emailAddress;
 }
+
 class FaxContact implements Contact {
     @NotNull
     public String faxNumber;

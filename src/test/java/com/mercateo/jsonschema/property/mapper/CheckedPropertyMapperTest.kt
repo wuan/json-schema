@@ -62,7 +62,8 @@ class CheckedPropertyMapperTest {
         val referencedPropertyMapper = ReferencedPropertyMapper()
 
         val property = referencedPropertyMapper.from(
-                propertyBuilder.from(CheckedPropertyMapperClasses.Nested::class.java), SchemaContext(propertyChecker))
+            propertyBuilder.from(CheckedPropertyMapperClasses.Nested::class.java), SchemaContext(propertyChecker)
+        )
 
         every { propertyChecker.test(any()) } returns true
 

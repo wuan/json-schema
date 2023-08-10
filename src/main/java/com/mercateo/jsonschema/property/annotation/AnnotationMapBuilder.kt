@@ -1,7 +1,5 @@
 package com.mercateo.jsonschema.property.annotation
 
-import java.util.*
-
 class AnnotationMapBuilder {
     fun createMap(annotations: List<Annotation>): Map<Class<out Annotation>, Set<Annotation>> {
         return annotations.groupBy({ it.annotationClass.java }, { it }).mapValues { it.value.toSet() }

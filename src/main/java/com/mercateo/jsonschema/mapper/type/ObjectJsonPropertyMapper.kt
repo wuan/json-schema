@@ -31,6 +31,7 @@ internal class ObjectJsonPropertyMapper(
                     propertyNode
                 )
             }
+
             is PropertyDescriptor.Variant.Polymorphic -> {
                 polymorphicObjectMapper.addPolymorphicObjectSchema(
                     variant,
@@ -38,6 +39,7 @@ internal class ObjectJsonPropertyMapper(
                     propertyNode
                 )
             }
+
             else -> {
             }
         }

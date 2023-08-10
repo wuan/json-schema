@@ -15,7 +15,8 @@ class GenericParameterizedTypeTest {
 
         @SuppressWarnings("rawtypes")
         val genericType = GenericParameterizedType(
-                type as ParameterizedType, List::class.java)
+            type as ParameterizedType, List::class.java
+        )
 
         assertThat(genericType.name).isEqualTo("java.util.List<java.util.List<java.lang.Double>>")
         assertThat(genericType.simpleName).isEqualTo("java.util.List<java.util.List<java.lang.Double>>")
@@ -28,7 +29,8 @@ class GenericParameterizedTypeTest {
 
         @SuppressWarnings("rawtypes")
         val genericType = GenericParameterizedType(
-                type as ParameterizedType, List::class.java)
+            type as ParameterizedType, List::class.java
+        )
 
         val containedType1 = genericType.containedType
         assertThat(containedType1.rawType).isEqualTo(java.util.List::class.java)

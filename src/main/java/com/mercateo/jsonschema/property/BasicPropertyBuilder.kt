@@ -37,7 +37,8 @@ class BasicPropertyBuilder(
     private val knownDescriptors: MutablePropertyDescriptorMap = MutablePropertyDescriptorMap()
 
     override fun <T> from(genericType: GenericType<T>): Property<Void, T> {
-        return from(ROOT_NAME, genericType, mutableMapOf(),
+        return from(
+            ROOT_NAME, genericType, mutableMapOf(),
             { rootValueAccessor(it) }, mutableSetOf()
         )
     }

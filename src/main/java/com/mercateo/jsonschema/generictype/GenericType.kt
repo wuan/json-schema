@@ -51,10 +51,12 @@ interface GenericType<out T> {
                     @Suppress("UNCHECKED_CAST")
                     return GenericParameterizedType(type, type.rawType as Class<T>)
                 }
+
                 is Class<*> -> {
                     @Suppress("UNCHECKED_CAST")
                     return GenericClass(type as Class<T>)
                 }
+
                 is GenericArrayType -> {
                     return GenericArray(type, requireNonNull<Class<T>>(rawType))
                 }

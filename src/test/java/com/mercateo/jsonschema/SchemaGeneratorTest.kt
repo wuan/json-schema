@@ -157,7 +157,8 @@ class SchemaGeneratorTest {
 
     @Test
     fun showsAllowedValuesForEnum() {
-        val allowedValues = arrayOf(SchemaGeneratorClasses.EnumValue().apply { enumValue = SchemaGeneratorClasses.Value.TRUE })
+        val allowedValues =
+            arrayOf(SchemaGeneratorClasses.EnumValue().apply { enumValue = SchemaGeneratorClasses.Value.TRUE })
         val schema = schemaGenerator.generateSchema(SchemaGeneratorClasses.EnumValue::class.java, null, allowedValues)
 
         assertThat(schema.toString()).isEqualTo("{\"type\":\"object\",\"properties\":{\"enumValue\":{\"type\":\"string\",\"enum\":[\"TRUE\"]}}}")
@@ -165,11 +166,14 @@ class SchemaGeneratorTest {
 
     @Test
     fun shouldAddUnwrappedPropertyMapper() {
-        schemaGenerator = SchemaGenerator(propertyCollectors = listOf(FieldCollector()), unwrapAnnotations = listOf(object : UnwrappedPropertyUpdater<JsonUnwrapped>(JsonUnwrapped::class.java) {
-            override fun updateName(name: String, annotation: JsonUnwrapped): String {
-                return annotation.prefix + name + annotation.suffix
-            }
-        }))
+        schemaGenerator = SchemaGenerator(
+            propertyCollectors = listOf(FieldCollector()),
+            unwrapAnnotations = listOf(object : UnwrappedPropertyUpdater<JsonUnwrapped>(JsonUnwrapped::class.java) {
+                override fun updateName(name: String, annotation: JsonUnwrapped): String {
+                    return annotation.prefix + name + annotation.suffix
+                }
+            })
+        )
 
         val schema = schemaGenerator.generateSchema(SchemaGeneratorClasses.EnumValue::class.java, null, null)
 
@@ -185,11 +189,15 @@ class SchemaGeneratorTest {
 
     @Test
     fun shouldRemovePropertiesAccordingToPropertyCheckerResult() {
-        val schema = schemaGenerator.generateSchema(SchemaGeneratorClasses.Checked::class.java, null, null, object : PropertyChecker {
-            override fun test(t: Property<*, *>): Boolean {
-                return !t.annotations.containsKey(SchemaGeneratorClasses.Inactive::class.java)
-            }
-        })
+        val schema = schemaGenerator.generateSchema(
+            SchemaGeneratorClasses.Checked::class.java,
+            null,
+            null,
+            object : PropertyChecker {
+                override fun test(t: Property<*, *>): Boolean {
+                    return !t.annotations.containsKey(SchemaGeneratorClasses.Inactive::class.java)
+                }
+            })
 
         assertThat(schema.toString()).isEqualTo("{\"type\":\"object\",\"properties\":{\"bar\":{\"type\":\"string\"}}}")
     }

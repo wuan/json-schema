@@ -111,14 +111,17 @@ public class BasicPropertyBuilderClasses {
             @JsonSubTypes.Type(name = "fax", value = FaxContact.class),
             @JsonSubTypes.Type(name = "empty", value = EmptyContact.class)
     })
-    interface Contact {}
+    interface Contact {
+    }
 
     public static class EmailContact implements Contact {
         public String emailAddress;
     }
+
     public static class FaxContact implements Contact {
         public String faxNumber;
     }
+
     public static class EmptyContact implements Contact {
     }
 }
