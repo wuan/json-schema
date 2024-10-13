@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "1.9.25"
     `java-library`
     `maven-publish`
     id("org.sonarqube") version "5.1.0.4882"
@@ -21,9 +21,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "17"
+kotlin {
+    jvmToolchain(17)
+    compilerOptions {
+        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
     }
 }
 
