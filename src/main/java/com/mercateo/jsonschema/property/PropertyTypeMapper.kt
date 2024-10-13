@@ -1,7 +1,6 @@
 package com.mercateo.jsonschema.property
 
 import com.mercateo.jsonschema.generictype.GenericType
-import java.io.Serializable
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.time.Instant
