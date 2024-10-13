@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm") version "1.9.0"
-    id("com.github.kt3k.coveralls") version "2.12.0"
     `java-library`
     `maven-publish`
     id("org.sonarqube") version "5.1.0.4882"
@@ -18,18 +17,18 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
 jacoco {
-    toolVersion = "0.8.10"
+    toolVersion = "0.8.12"
 }
 
 tasks.test {
