@@ -21,12 +21,18 @@ class SchemaPropertyMapper(private val referencedElements: Set<String>) {
         return if (context.reference != null) {
             nodeFactory.objectNode().apply { put("\$ref", context.reference) }
         } else {
-            propertyMappers[context.propertyDescriptor.propertyType]!!.toJson(context).apply {
-                val name = context.property.path
+            val propertyType = context.propertyDescriptor.propertyType
+            val jsonPropertyMapper = propertyMappers[propertyType]
+            if (jsonPropertyMapper != null) {
+                jsonPropertyMapper.toJson(context).apply {
+                    val name = context.property.path
 
-                if (referencedElements.contains(name)) {
-                    put("id", name)
+                    if (referencedElements.contains(name)) {
+                        put("id", name)
+                    }
                 }
+            } else {
+                throw IllegalStateException("did not find property mapper for $propertyType")
             }
         }
     }
