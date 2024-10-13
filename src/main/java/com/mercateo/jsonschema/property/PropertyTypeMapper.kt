@@ -8,7 +8,7 @@ import java.util.*
 
 object PropertyTypeMapper {
 
-    private val TYPE_MAP = mapOf(
+    private val TYPE_MAP: Map<Class<out Any?>, PropertyType> = mapOf(
         Pair(String::class.java, PropertyType.STRING),
         Pair(Boolean::class.java, PropertyType.BOOLEAN),
         Pair(java.lang.Boolean::class.java, PropertyType.BOOLEAN),
@@ -33,7 +33,7 @@ object PropertyTypeMapper {
             return PropertyType.ARRAY
         }
 
-        val clazz = type.rawType
+        val clazz: Class<out Any?> = type.rawType
         if (Enum::class.java.isAssignableFrom(clazz)) {
             return PropertyType.STRING
         }

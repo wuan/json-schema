@@ -1,9 +1,8 @@
 plugins {
-    kotlin("jvm") version "1.9.0"
-    id("com.github.kt3k.coveralls") version "2.12.0"
+    kotlin("jvm") version "1.9.25"
     `java-library`
     `maven-publish`
-    id("org.sonarqube") version "3.5.0.2730"
+    id("org.sonarqube") version "5.1.0.4882"
     idea
     id("jacoco")
 }
@@ -18,18 +17,19 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "11"
+kotlin {
+    jvmToolchain(17)
+    compilerOptions {
+        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
     }
 }
 
 jacoco {
-    toolVersion = "0.8.10"
+    toolVersion = "0.8.12"
 }
 
 tasks.test {
@@ -47,7 +47,9 @@ tasks.jacocoTestReport {
 
 sonar {
     properties {
-        property("sonar.projectKey", "wuan_json-schema_AYVNclMSU_dM7amWRil-")
+        property("sonar.projectKey", "wuan_json-schema")
+        property("sonar.organization", "wuan")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 

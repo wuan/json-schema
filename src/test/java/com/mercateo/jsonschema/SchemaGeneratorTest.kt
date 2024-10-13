@@ -63,9 +63,9 @@ class SchemaGeneratorTest {
         defaultValue.qux = 5.1
         defaultValue.quux = true
 
-        val schema = schemaGenerator.generateSchema(schemaClass, defaultValue = defaultValue)
+        val generateSchema = schemaGenerator.generateSchema(schemaClass, defaultValue = defaultValue)
 
-        assertThat(schema.toString()).isEqualTo("{\"type\":\"object\",\"properties\":{\"baar\":{\"type\":\"integer\",\"default\":100},\"bar\":{\"type\":\"integer\",\"default\":10},\"baz\":{\"type\":\"number\",\"default\":4.8},\"foo\":{\"type\":\"string\",\"default\":\"foo\"},\"quux\":{\"type\":\"boolean\",\"default\":true},\"qux\":{\"type\":\"number\",\"default\":5.1}}}")
+        assertThat(generateSchema.toString()).isEqualTo("{\"type\":\"object\",\"properties\":{\"baar\":{\"type\":\"integer\",\"default\":100},\"bar\":{\"type\":\"integer\",\"default\":10},\"baz\":{\"type\":\"number\",\"default\":4.8},\"foo\":{\"type\":\"string\",\"default\":\"foo\"},\"quux\":{\"type\":\"boolean\",\"default\":true},\"qux\":{\"type\":\"number\",\"default\":5.1}}}")
     }
 
     @Test
