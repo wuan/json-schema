@@ -3,7 +3,7 @@ plugins {
     id("com.github.kt3k.coveralls") version "2.12.0"
     `java-library`
     `maven-publish`
-    id("org.sonarqube") version "3.5.0.2730"
+    id("org.sonarqube") version "5.1.0.4882"
     idea
     id("jacoco")
 }
@@ -47,7 +47,9 @@ tasks.jacocoTestReport {
 
 sonar {
     properties {
-        property("sonar.projectKey", "wuan_json-schema_AYVNclMSU_dM7amWRil-")
+        property("sonar.projectKey", "wuan_json-schema")
+        property("sonar.organization", "wuan")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 
